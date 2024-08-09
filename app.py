@@ -12,12 +12,10 @@ def hello_world():
 
 @app.route('/task')
 def run_task():
+    print('Running task')
     result = task()
     print(result)
     return result
-
-
-
 
 
 
