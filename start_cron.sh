@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Define the cron job
 # every 1 minutes, every hour, every day, every month, every day of the week
