@@ -13,3 +13,13 @@
 
 5. Access the container's shell
 `docker exec -it <container_id_or_name> /bin/sh`
+
+# Cron commands in interactive shell
+1. View the existing cron jobs
+crontab -l
+
+2. Edit the cron jobs 
+crontab -e
+
+
+
