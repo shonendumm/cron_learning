@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Define the cron job
 # every 1 minutes, every hour, every day, every month, every day of the week
 cron_job="*/1 * * * * trigger_task.sh"
