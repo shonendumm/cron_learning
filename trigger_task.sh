@@ -10,7 +10,7 @@ curl -X GET $URL
 
 # Optional: Log the response or any errors
 if [ $? -eq 0 ]; then
-    echo "$(date): Successfully triggered $URL" >> logfile.log
+    echo "$(date): Successfully triggered $URL" >> /usr/local/logfile.log
 else
-    echo "$(date): Failed to trigger $URL" >> logfile.log
+    echo "$(date): Failed to trigger $URL" >> /usr/local/logfile.log
 fi

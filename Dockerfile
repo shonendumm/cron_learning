@@ -1,24 +1,24 @@
 FROM python:3.9-slim
 
 ########### For Flask App ###########
-# # Set the working directory in the container
-# WORKDIR /app
+# Set the working directory in the container
+WORKDIR /app
 
-# # Copy the requirements file into the container at /app
-# COPY requirements.txt .
+# Copy the requirements file into the container at /app
+COPY requirements.txt .
 
-# # Install any dependencies specified in requirements.txt
-# RUN pip install --no-cache-dir -r requirements.txt
+# Install any dependencies specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# # Copy the current directory contents into the container at /app
-# COPY . .
+# Copy the current directory contents into the container at /app
+COPY . .
 
-# # Make port 5000 available to the world outside this container
-# EXPOSE 5000
+# Make port 5000 available to the world outside this container
+EXPOSE 5000
 
-# # Define environment variables
-# ENV FLASK_APP=app.py
-# ENV FLASK_RUN_HOST=0.0.0.0
+# Define environment variables
+ENV FLASK_APP=app.py
+ENV FLASK_RUN_HOST=0.0.0.0
 
 ########### For Cron job ###########
 # Install cron and other necessary packages
@@ -50,4 +50,4 @@ RUN echo '* * * * * root /bin/sh /usr/local/bin/echo_task.sh' > /etc/cron.d/echo
 
 ############# For running both Flask and Cron #############
 # Start cron in the foreground 
-CMD ["/usr/sbin/cron", "-f"]
+CMD ["/bin/sh", "-c", "/usr/sbin/cron -f & flask run"]
