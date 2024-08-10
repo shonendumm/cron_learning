@@ -40,7 +40,7 @@ RUN chmod +x /usr/local/bin/echo_task.sh
 
 
 # Create the crontab files and add the cron jobs
-# need to specify the user as root, for jobs in /etc/cron.d to run
+# need to specify the user for jobs in /etc/cron.d to run
 RUN echo '* * * * * root /bin/sh /usr/local/bin/trigger_task.sh' > /etc/cron.d/trigger-task
 RUN echo '* * * * * root /bin/sh /usr/local/bin/echo_task.sh' > /etc/cron.d/echo-task
 
@@ -49,5 +49,6 @@ RUN echo '* * * * * root /bin/sh /usr/local/bin/echo_task.sh' > /etc/cron.d/echo
 
 
 ############# For running both Flask and Cron #############
-# Start cron in the foreground 
+# Start cron in the foreground, but & puts it in the background, then start Flask. 
 CMD ["/bin/sh", "-c", "/usr/sbin/cron -f & flask run"]
+# CMD /bin/sh -c '/usr/sbin/cron -f & exec flask run'
