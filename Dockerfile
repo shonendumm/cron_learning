@@ -19,6 +19,7 @@ EXPOSE 5000
 # Define environment variables
 ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
+ENV KEY=taskrun
 
 ########### For Cron job ###########
 # Install cron and other necessary packages
@@ -50,5 +51,11 @@ RUN echo '* * * * * root /bin/sh /usr/local/bin/echo_task.sh' > /etc/cron.d/echo
 
 ############# For running both Flask and Cron #############
 # Start cron in the foreground, but & puts it in the background, then start Flask. 
-CMD ["/bin/sh", "-c", "/usr/sbin/cron -f & flask run"]
+# CMD ["/bin/sh", "-c", "/usr/sbin/cron -f & flask run"]
 # CMD /bin/sh -c '/usr/sbin/cron -f & exec flask run'
+
+# grep the environment variables (-exclude 'no-proxy' lines) and write them to /etc/environment (where shell scripts can access them)
+# then start cron in the background and Flask in the foreground
+CMD ["/bin/sh", "-c", "printenv | grep -v 'no-proxy' >> /etc/environment && /usr/sbin/cron -f & flask run"]
+
+
